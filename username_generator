@@ -1,0 +1,33 @@
+# username_generator.py
+from utils import generate_username, load_wordlist
+
+def main():
+    print("=== Username Generator ===")
+    first_name = input("Enter your first name: ").strip()
+    interests = input("Enter your interests (comma separated): ").strip().split(',')
+    style = input("Choose a style (funny/aesthetic/edgy): ").strip().lower()
+    max_length = int(input("Max length of username (e.g., 12): ").strip())
+    include_numbers = input("Include numbers? (yes/no): ").strip().lower() == "yes"
+    include_specials = input("Include special characters? (yes/no): ").strip().lower() == "yes"
+
+    blacklist = load_wordlist()
+
+    username = generate_username(
+        first_name,
+        interests,
+        style,
+        max_length,
+        include_numbers,
+        include_specials,
+        blacklist
+    )
+
+    print(f"\n✨ Your generated username: {username}")
+
+    # Save to file
+    with open("samples/generated_usernames.txt", "a") as f:
+        f.write(username + "\n")
+    print("Username saved to samples/generated_usernames.txt")
+
+if __name__ == "__main__":
+    main()
